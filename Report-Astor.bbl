@@ -1,0 +1,26 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Badenhoop(2017)]{Philipp}
+P.~Badenhoop.
+\newblock Automated repair with genetic programming.
+\newblock Technical report, Humboldt University of Berlin, Lehrstuhl Software
+  Engineering, 2017.
+
+\bibitem[{Eclipse Foundation}(2007)]{AspectJ2007}
+{Eclipse Foundation}.
+\newblock {AspectJ} -- homepage, 2007.
+\newblock URL \url{http://www.eclipse.org/aspectj/}.
+\newblock Last visited November 14, 2007.
+
+\bibitem[Salam()]{salam}
+A.~Salam.
+\newblock Weak and electromagnetic interactions.
+\newblock In N.~Svartholm, editor, \emph{Elementary particle theory}, pages
+  367--377. Almquist \& Wiksell.
+
+\end{thebibliography}

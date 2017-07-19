@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Report-Astor.aux
+The style file: abbrvnat.bst
+Database file #1: Report-Astor.bib
+Warning--empty year in salam
+Warning--empty year in salam
+You've used 3 entries,
+            2773 wiz_defined-function locations,
+            611 strings with 4938 characters,
+and the built_in function-call counts, 1154 in all, are:
+= -- 106
+> -- 34
+< -- 4
++ -- 13
+- -- 10
+* -- 64
+:= -- 180
+add.period$ -- 11
+call.type$ -- 3
+change.case$ -- 13
+chr.to.int$ -- 3
+cite$ -- 8
+duplicate$ -- 62
+empty$ -- 110
+format.name$ -- 13
+if$ -- 248
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 1
+newline$ -- 24
+num.names$ -- 14
+pop$ -- 33
+preamble$ -- 1
+purify$ -- 9
+quote$ -- 0
+skip$ -- 47
+stack$ -- 0
+substring$ -- 34
+swap$ -- 12
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 33
+warning$ -- 2
+while$ -- 12
+width$ -- 0
+write$ -- 47
+(There were 2 warnings)

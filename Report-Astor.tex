@@ -1,0 +1,318 @@
+\documentclass[pdftex,english,oribibl]{llncs}
+
+%% Spracheinstellungen laden
+\usepackage[english]{babel}
+
+%% Schriftart in der Ausgabe/Eingabe
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[latin1]{inputenc}
+
+%% Zitate
+\usepackage[numbers]{natbib}
+\bibliographystyle{abbrvnat}
+%\bibliographystyle{dinat}
+%\bibliographystyle{plainnat}
+%\bibliographystyle{splncs}
+%% Similar to option "sectionbib" but \refname instead of \bibname
+\makeatletter
+\renewcommand\bibsection{\section*{\refname\@mkboth{\MakeUppercase{\refname}}{\MakeUppercase{\refname}}}}
+\makeatother
+
+%% Index
+%\usepackage{makeidx}
+%\makeindex
+
+%% PDF Einstellungen
+% muss nach natbib geladen werden!
+\usepackage{nameref}
+\usepackage{varioref}
+\usepackage[pdfusetitle,pdftex,colorlinks]{hyperref}
+\hypersetup{pdfborder={0 0 0}}
+\hypersetup{bookmarksdepth=3}
+\hypersetup{bookmarksopen=true}
+\hypersetup{bookmarksopenlevel=1}
+\hypersetup{bookmarksnumbered=true}
+\usepackage{color}
+\hypersetup{colorlinks=false}
+\usepackage{titling}
+
+\usepackage{listings}
+\lstdefinestyle{customjava}{
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+	identifierstyle=\color{blue},
+	stringstyle=\color{orange},
+}
+
+\lstset{escapechar=@,style=customjava}
+
+\lstset{
+	escapechar=\%,
+	language=Tex,
+	tabsize=2,
+	numbers=left,
+	%	frame=tB,
+	frame=none,
+	framerule=0.1pt,
+	basicstyle=\footnotesize,
+	framexleftmargin=8mm,
+	xleftmargin=0.6cm,
+	keywordstyle=\bfseries\color{blue},
+	identifierstyle=\bfseries,
+	numberstyle=\color[RGB]{0,192,192},
+	commentstyle=\it\color[RGB]{0,96,96},
+	stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},
+	showstringspaces=true
+}
+
+\usepackage[linesnumbered,ruled]{algorithm2e}
+
+%\usepackage[section]{tocbibind}
+
+\makeatletter
+\gdef\@keywords{}
+\def\keywords#1{\gdef\@keywords{#1}}
+\gdef\@subtitle{}
+\def\subtitle#1{\gdef\@subtitle{#1}}
+
+%% modified from llncs
+\renewenvironment{abstract}{%
+  \list{}{\advance\topsep by0.35cm\relax\small%
+          \leftmargin=1cm%
+          \labelwidth=\z@%
+          \listparindent=\z@%
+          \itemindent\listparindent%
+          \rightmargin\leftmargin}%
+          \item[\hskip\labelsep\bfseries\abstractname]}{%
+  \if!\@keywords!\else{\item[~]\item[\hskip\labelsep\bfseries\keywordname]\@keywords}\fi%
+  \endlist}
+
+\AtBeginDocument{%
+  \if!\@subtitle!\else\hypersetup{pdfsubject={\@subtitle}}\fi
+  \if!\@keywords!\else\hypersetup{pdfkeywords={\@keywords}}\fi
+}
+\makeatother
+
+% llncs hyperref fix
+\makeatletter
+\providecommand*{\toclevel@author}{0}
+\providecommand*{\toclevel@title}{0}
+\makeatother
+
+%% Grafiken
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsExtensions{.pdf,.jpg,.png}
+\usepackage{subfigure}
+
+%% Mathe
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%% Listings
+\usepackage{listings}
+\lstset{escapechar=\%, frame=tb, basicstyle=\footnotesize}
+
+%% Sonstiges
+\newcommand{\TODO}[1]{\par\textcolor{red}{#1}\marginpar{\textcolor{red}{TODO}}}
+\newcommand{\TODOX}[1]{\textcolor{red}{#1}\marginpar{\textcolor{red}{TODO}}}
+\pagestyle{plain}
+
+% Keine "Schusterjungen"
+\clubpenalty = 10000
+% Keine "Hurenkinder"
+\widowpenalty = 10000 \displaywidowpenalty = 10000
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BEGIN DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pretitle{%
+  \begin{center}\LARGE
+  \noindent\includegraphics[height=2.5cm]{figures/logo-se}\hfill{}\includegraphics[height=2.5cm]{figures/logo-uni}\\\vspace{0.5cm}
+}
+\title{Automatic debugging using comparable approaches}
+% \subtitle{My (optional) Subtitle}
+\author{Philipp Badenhoop, Daniel Bucher, Birgit Pohl, Tim Sikatzki}
+\institute{Humboldt University of Berlin\\Department of Computer Science\\12489 Berlin, Germany}
+\posttitle{\end{center}}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Context, Problematic, Solution
+
+Astor is a automatic, multidisciplinary testing and repair library for Java. It contains three different modi, GenProg, Kali and MutRepair. Focussing on GenProg modus we found out that Astor's GenProg modus may not recognize enums, static variables that do not change their state.
+To analyze Astor's effectivity we ran a test with Defects4J in order to find out, how many bugs is Astor able to fix. We conducted a bugfix on Astor and ran a test with the fixed version on Data4J as well. The results show .....
+We also condcuted a test focussed on the test cases involving enums if they are repaired correctly.
+\end{abstract}
+
+\section{Introduction}
+At the moment lots of effort is put into the research of automatic repair tools. Most of the tools that are released are already functioning well, but there is enough space for improvement. Our motivation was to contribute to this research.\\
+The tool of choice for that is Astor. The special property of Astor is its comfortability of being a platform for three drifferent automatic repair approaches which are GenProg, Kali and MutRepair. In our research we mainly focused on GenProg but the fact of having a platform for different approaches for automatic repair caught our attention.\\
+While working with Astor, we discovered a bug which fix could result in finding a large amount of new bugs in other software that was tested with Astor.
+So our contribution is to provide a fix for the bug we discovered and open up a path to find bugs in already existing famous open source projects.
+
+
+Definitions\\
+Mentiones of relates work that is important in the introduction\\
+Problem\\
+- enums, static variables that do not change their state.\\
+-  Dataset4J, a set of real-life peer-reviewed bugs for Java\\
+
+Automatic Repair of Real Bugs: An Experience Report on
+the Defects4J Dataset\\
+
+
+\section{Background}\label{sec:background}
+
+Our tool of choice is Astor a "publicly available automatic software repair tool"  for Java. Astor uses three different approaches, GenProg, Kali and MutRepair, which can be compared as well. In our project the focus was mainly on GenProg so there will be a short explanation for Kali or MutRepair.\\
+\subsection{Kali}
+Kali is trying to repair programs by deleting or skipping lines from the code.
+\subsection{MutRepair}
+MutRepair repairs programs by mutating their if-Statements. A mutation could be a mutation through negation or a mutation of a logical or relational operation.
+\subsection{GenProg}
+GenProg receives a program as input. After creating n copies of the program GenProg mutates the copies using Fault Localisisation and Validation to determine the statements of the program that should be mutate.
+\subsection{Fault Localisation and Repair Validation}
+Astor uses the Ochiai Formula for the Fault Localisation of all the approaches. This formula calculates suspicious parts of the program using test cases. All approaches use the "weighted randomly strategy" https://arxiv.org/pdf/1410.6651.pdf so if a statement has a higher suspicious value the probability of it being selected from the repair operator is also higher.\\
+If a repair is finished it has to be validated. This happens by using the Testsuite of the original program. First the repaired copy of the program has to successfully finish the testcases, that the original program has failed. After that, the copy has to be tested with the tests, the original program already succeeded in to make sure the repair did not break anything.
+
+
+
+
+ \cite{salam}
+
+\section{Problem}\label{sec:problem}
+
+We created a very simple program which we actually expected Astors GenProg mode to be able to repair.
+The program is shown in Figure~\ref{fig:testProgram}.
+$getLanguage()$ is the method containing the bug.
+Note that we provided a correct implementation of this method in $working()$ which is located in the same class.
+Our $getLanguage()$ method should return an enum reference of type Language (see Figure~\ref{fig:enum}) according to the input string $lang$.
+The difference between the two methods is that $getLanguage()$ returns $Language.JAVA$ if $lang$ does not equal to either ``C'' or ``CPP'' whereas $working()$ returns $Language.PYTHON$ if $lang$ does not equal to either ``C'', ``CPP'' or ``JAVA''.
+
+\begin{figure}
+	\begin{center}
+		\lstinputlisting[language=Java]{code/Program.java}
+	\end{center}
+	\caption{The buggy program. The method $working()$ is the correct implementation of the buggy method $getLanguage()$ which is to be repaired.}
+	\label{fig:testProgram}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\lstinputlisting[language=Java]{code/Language.java}
+	\end{center}
+	\caption{The enum $Language$.}
+	\label{fig:enum}
+\end{figure}
+
+Since GenProg evaluates its variants using a test suite, Figure~\ref{fig:testsuite} shows the one we created for our buggy program. It contains three positive test cases $p1()$, $p2()$ and $p3()$ and one negative test case $n1()$. 
+In the context of automated program repair, positive test cases represent the desired behavior which should be kept after applying the patch whereas negative test cases induce the failure.
+So in our example, $n1()$ triggers our buggy method $getLanguage()$ to return $Language.JAVA$ although we would expect it to output $Language.PYTHON$ using the correct version.
+
+\begin{figure}
+\begin{center}
+\lstinputlisting[language=Java]{code/ProgramTest.java}
+\end{center}
+\caption{The test suite.}
+\label{fig:testsuite}
+\end{figure}
+
+Why are we so sure that GenProg would be able to fix our bug?
+To reason about our consciousness, one must understand how GenProg finds its patches.
+The repair tool makes use of an evolutionary approach called genetic programming and operates on the level of statements. Its mutation operator selects a statement $stmt$ on along the execution path of the negative test case and chooses one of the following actions \cite{Philipp}:
+\begin{itemize}
+ 	\item A statement from anywhere in the program is inserted after $stmt$.
+ 	\item A statement from anywhere in the program is swapped with $stmt$.
+ 	\item $stmt$ is deleted.
+\end{itemize}
+This means that in order to create a patch of our buggy program, the following mutations have to be applied:
+\begin{enumerate}
+	\item Remove statement ``return Language.JAVA''.
+	\item Insert statement ``if(lang.equals("JAVA") return Language.JAVA; else return Language.PYTHON);'' from $working()$ to the place of the statement we just removed in step 1.
+\end{enumerate}
+We've run Astors GenProg mode and were surprised that it was not able to find a patch.
+
+\section{Solution}\label{sec:solution}
+
+Since Astor failed at repairing our program, during an intense debugging session, we investigated what the tool is doing.
+We found out that there was a problem with the $fitInContext()$ method in the class $VariableResolver$. As the name indicates, it checks if a statement fits in some context. For instance, it's called when GenProg wants to insert a statement from somewhere in the code to a place along the execution path of the negative test case. In this situation, the statement to be inserted may contain access to variables which don't appear in the context where it is going to be inserted. Therefore, $fitInContext()$ is used to avoid the creation of uncompilable program variants.
+
+Figure~\ref{fig:fitInContext} gives pseudocode of our fixed version of the method.
+Essentially, we only added the expression ``$\vee access.isEnumReference()$'' in line 3 to fix the problem.
+The algorithm takes a statement $stmt$ and a set of variables as input.
+The variables represent the context in which $stmt$ has to fit (e.g. local and/or member variables). At first, we collect all variable accesses which appear in $stmt$.
+Every access must also be valid in the destination context which is checked in the for loop.
+We consider two types of accesses: those which are \emph{context dependent} and those which are \emph{context independent}. 
+An access is context independent if one of the following conditions hold:
+\begin{enumerate}
+	\item The declaration of the accessed variable is contained inside $stmt$ itself.
+	\item The accessed variable is static.
+	\item The accessed variable is an enum field.
+\end{enumerate}
+If the access is not context independent, we check if there exist a variable in the destination context which matches type and identifier with the accessed variable.
+The original version did not check the access to be an enum field.
+As a consequence, no statement containing an enum reference could be inserted anywhere since $fitInContext()$ always mistakenly returned false.
+After applying our fix in Astor, the tool was able to generated the expected patch (see Figure~\ref{fig:fixed}).
+
+\begin{figure}
+	\centering
+\begin{algorithm}[H]
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+
+\Input{Set of context variables $varContext$.}
+\Input{Statement $stmt$.}
+
+$varAccesses = collectVariableAccesses(stmt)$\;
+
+\ForAll{$access \in varAccesses$}
+{
+ $contextIndependend = stmt.contains(access.getDeclaration()) \vee access.isStatic() \vee access.isEnumReference()$ \;
+
+ \If{$\neg contextIndependend \wedge \neg varContext.contains(access)$}
+ {
+   \Return false\;
+ }
+}
+
+\Return true\;
+
+\caption{VariableResolver.fitInContext()}
+\end{algorithm}
+\caption{Pseudocode for our fixed version of the VariableResolver.fitInContext() method.}
+\label{fig:fitInContext}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\lstinputlisting[language=Java]{code/fixed.java}
+\end{center}
+\caption{The repair of the $getLanguage()$ method produced by our fixed version of Astor.}
+\label{fig:fixed}
+\end{figure}
+
+\section{Evaluation}\label{sec:evaluation}
+For the evaluation we used a testcase Database called "Defects4J" which contains 395 testprojects with different problems. After running Defects4J on both, the original Astor and our fixed version, we found out, that the tests, the Astor passed, our fix did also pass and the tests astor did not pass, our fix also did not pass. So the new version is as solid as the original version but it can also handle enums.
+
+\section{Related Work}\label{sec:relatedWork}
+
+\section{Conclusions}\label{sec:conclusions}
+
+  These are my conclusions 
+
+Dies ist ein ganz kurzer Beispieltext \cite{AspectJ2007}
+
+\bibliography{Report-Astor}
+
+
+
+
+
+
+
+\end{document}
