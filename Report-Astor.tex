@@ -143,11 +143,8 @@
 \maketitle
 
 \begin{abstract}
-  Context, Problematic, Solution
-
-Astor is a automatic, multidisciplinary testing and repair library for Java. It contains three different modi, GenProg, Kali and MutRepair. Focussing on GenProg modus we found out that Astor's GenProg modus may not recognize enums, static variables that do not change their state.
-To analyze Astor's effectivity we ran a test with Defects4J in order to find out, how many bugs is Astor able to fix. We conducted a bugfix on Astor and ran a test with the fixed version on Data4J as well. The results show .....
-We also condcuted a test focussed on the test cases involving enums if they are repaired correctly.
+Since 2009 the development of automatic repair tools is pretty popular and also really important, because time is money and even though automatic repair software can be expensive it is still cheaper than having someone doing the work manually. But for a practical use the tools have to be reliable.
+During our research we worked on the automatic repair tool Astor, a platform which contains three individual automatic repair approaches: Kali, MutRepair and GenProg. We discovered that Astor was not able handle enums so we fixed the bug and our results show that we atleast improved the tool to a certain extend.
 
 \end{abstract}
 
@@ -296,7 +293,7 @@ For the evaluation we used a testcase Database called "Defects4J" which contains
 
 \section{Conclusions}\label{sec:conclusions}
 
-  These are my conclusions 
+ Taking the results of Defects4J and our own testing into consideration we can conclude that we reached the goal we wanted to reach. Defects4J did not show any new failing tests so we did not make the tool worse, we improved it.
 
 Dies ist ein ganz kurzer Beispieltext \cite{AspectJ2007}
 
