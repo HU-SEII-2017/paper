@@ -133,7 +133,7 @@
 }
 \title{Automatic debugging using comparable approaches}
 % \subtitle{My (optional) Subtitle}
-\author{Philipp Badenhoop, Daniel Bucher, Birgit Pohl, Tim Sikatzki}
+\author{Philipp Badenhoop, Daniel Bucher, Tim Sikatzki}
 \institute{Humboldt University of Berlin\\Department of Computer Science\\12489 Berlin, Germany}
 \posttitle{\end{center}}
 
@@ -148,24 +148,22 @@
 Astor is a automatic, multidisciplinary testing and repair library for Java. It contains three different modi, GenProg, Kali and MutRepair. Focussing on GenProg modus we found out that Astor's GenProg modus may not recognize enums, static variables that do not change their state.
 To analyze Astor's effectivity we ran a test with Defects4J in order to find out, how many bugs is Astor able to fix. We conducted a bugfix on Astor and ran a test with the fixed version on Data4J as well. The results show .....
 We also condcuted a test focussed on the test cases involving enums if they are repaired correctly.
+
 \end{abstract}
 
 \section{Introduction}
-At the moment lots of effort is put into the research of automatic repair tools. Most of the tools that are released are already functioning well, but there is enough space for improvement. Our motivation was to contribute to this research.\\
-The tool of choice for that is Astor. The special property of Astor is its comfortability of being a platform for three drifferent automatic repair approaches which are GenProg, Kali and MutRepair. In our research we mainly focused on GenProg but the fact of having a platform for different approaches for automatic repair caught our attention.\\
-While working with Astor, we discovered a bug which fix could result in finding a large amount of new bugs in other software that was tested with Astor.
-So our contribution is to provide a fix for the bug we discovered and open up a path to find bugs in already existing famous open source projects.
+Automated program repair is still in its infancy.
+Although some approaches are able to find reasonable patches for certain bugs, they fail when being applied to larger, real life programs.
+Therefore, we share the opinion that there's lots of potential and so we contributed to this research.
+Our tool of choice is Astor.
+The author's intention was to create a framework for automated program algorithms.
+By default, Astor implements three famous repair approaches: GenProg, Kali and MutRepair.
+In our research, we mainly focused on GenProg which have had the first major impact on automated patch generation.
+While working with the GenProg mode, we discovered a bug in Astor. 
+Its fix could potentially result in the fact that Astor finds many more patches in buggy software systems than it was able to before.
+Our contribution is to provide a reasonable fix for the bug we discovered and analyze how our new version performs when being applied to famous open source projects.
 
-
-Definitions\\
-Mentiones of relates work that is important in the introduction\\
-Problem\\
-- enums, static variables that do not change their state.\\
--  Dataset4J, a set of real-life peer-reviewed bugs for Java\\
-
-Automatic Repair of Real Bugs: An Experience Report on
-the Defects4J Dataset\\
-
+\section{Related Work}\label{sec:relatedWork}
 
 \section{Background}\label{sec:background}
 
@@ -179,9 +177,6 @@ GenProg receives a program as input. After creating n copies of the program GenP
 \subsection{Fault Localisation and Repair Validation}
 Astor uses the Ochiai Formula for the Fault Localisation of all the approaches. This formula calculates suspicious parts of the program using test cases. All approaches use the "weighted randomly strategy" https://arxiv.org/pdf/1410.6651.pdf so if a statement has a higher suspicious value the probability of it being selected from the repair operator is also higher.\\
 If a repair is finished it has to be validated. This happens by using the Testsuite of the original program. First the repaired copy of the program has to successfully finish the testcases, that the original program has failed. After that, the copy has to be tested with the tests, the original program already succeeded in to make sure the repair did not break anything.
-
-
-
 
  \cite{salam}
 
@@ -298,8 +293,6 @@ $varAccesses = collectVariableAccesses(stmt)$\;
 
 \section{Evaluation}\label{sec:evaluation}
 For the evaluation we used a testcase Database called "Defects4J" which contains 395 testprojects with different problems. After running Defects4J on both, the original Astor and our fixed version, we found out, that the tests, the Astor passed, our fix did also pass and the tests astor did not pass, our fix also did not pass. So the new version is as solid as the original version but it can also handle enums.
-
-\section{Related Work}\label{sec:relatedWork}
 
 \section{Conclusions}\label{sec:conclusions}
 
