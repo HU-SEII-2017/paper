@@ -131,7 +131,7 @@
   \begin{center}\LARGE
   \noindent\includegraphics[height=2.5cm]{figures/logo-se}\hfill{}\includegraphics[height=2.5cm]{figures/logo-uni}\\\vspace{0.5cm}
 }
-\title{Automatic debugging using comparable approaches}
+\title{Automated program repair using Astor}
 % \subtitle{My (optional) Subtitle}
 \author{Philipp Badenhoop, Daniel Bucher, Tim Sikatzki}
 \institute{Humboldt University of Berlin\\Department of Computer Science\\12489 Berlin, Germany}
@@ -143,8 +143,9 @@
 \maketitle
 
 \begin{abstract}
-Since 2009 the development of automatic repair tools is pretty popular and also really important, because time is money and even though automatic repair software can be expensive it is still cheaper than having someone doing the work manually. But for a practical use the tools have to be reliable.
-During our research we worked on the automatic repair tool Astor, a platform which contains three individual automatic repair approaches: Kali, MutRepair and GenProg. We discovered that Astor was not able handle enums so we fixed the bug and our results show that we atleast improved the tool to a certain extend.
+Since the development of GenProg in 2009, research in automated program repair has made quite some progress. Astor, a Java platform for multiple patch generation tools, is one of the outcomes that we analyzed in more detail, especially its GenProg implementation. 
+We discovered that the repair program was not able cope with enums.
+Therefore, we provided a reasonable fix to this problem. Although we haven't been able to show that our modified version could find more patches than the original one when being applied to real life open source projects, at least it proved not to fall behind.
 
 \end{abstract}
 
@@ -152,30 +153,24 @@ During our research we worked on the automatic repair tool Astor, a platform whi
 Automated program repair is still in its infancy.
 Although some approaches are able to find reasonable patches for certain bugs, they fail when being applied to larger, real life programs.
 Therefore, we share the opinion that there's lots of potential and so we contributed to this research.
-Our tool of choice is Astor.
+Our tool of choice was Astor.
 The author's intention was to create a framework for automated program algorithms.
 By default, Astor implements three famous repair approaches: GenProg, Kali and MutRepair.
-In our research, we mainly focused on GenProg which have had the first major impact on automated patch generation.
+In our research, we mainly focused on GenProg which had the first major impact on automated patch generation.
 While working with the GenProg mode, we discovered a bug in Astor. 
 Its fix could potentially result in the fact that Astor finds many more patches in buggy software systems than it was able to before.
-Our contribution is to provide a reasonable fix for the bug we discovered and analyze how our new version performs when being applied to famous open source projects.
-
-\section{Related Work}\label{sec:relatedWork}
+Our contribution is to provide a reasonable fix for the bug we discovered and to analyze how our new version performs when being applied to famous open source projects.
 
 \section{Background}\label{sec:background}
 
-Our tool of choice is Astor a "publicly available automatic software repair tool"  for Java. Astor uses three different approaches, GenProg, Kali and MutRepair, which can be compared as well. In our project the focus was mainly on GenProg so there will be a short explanation for Kali or MutRepair.\\
-\subsection{Kali}
-Kali is trying to repair programs by deleting or skipping lines from the code.
-\subsection{MutRepair}
-MutRepair repairs programs by mutating their if-Statements. A mutation could be a mutation through negation or a mutation of a logical or relational operation.
-\subsection{GenProg}
-GenProg receives a program as input. After creating n copies of the program GenProg mutates the copies using Fault Localisisation and Validation to determine the statements of the program that should be mutate.
-\subsection{Fault Localisation and Repair Validation}
-Astor uses the Ochiai Formula for the Fault Localisation of all the approaches. This formula calculates suspicious parts of the program using test cases. All approaches use the "weighted randomly strategy" https://arxiv.org/pdf/1410.6651.pdf so if a statement has a higher suspicious value the probability of it being selected from the repair operator is also higher.\\
-If a repair is finished it has to be validated. This happens by using the Testsuite of the original program. First the repaired copy of the program has to successfully finish the testcases, that the original program has failed. After that, the copy has to be tested with the tests, the original program already succeeded in to make sure the repair did not break anything.
-
- \cite{salam}
+In our work, we focused on using Astors GenProg mode.
+GenProg uses genetic programming to find its repairs \cite{Philipp}.
+It takes a program as well as a test suite with positive and negative test cases as input.
+Positive test cases correspond to the specification of program behavior which should be kept after applying the patch whereas negative test cases induce the failure.
+The tool operates at the level of statements and transforms the input program into an abstract syntax tree.
+GenProg performs fault localization by only looking at the statements along the execution path of the negative test cases.
+It applies modifications to the program by using its mutation operator which is discussed in more detail in section~\ref{sec:problem}.
+Program variants may run through multiple generations until a candidate patch is found which passes the entire test suite. For further informations, see \cite{GenProgPaper}.
 
 \section{Problem}\label{sec:problem}
 
@@ -203,7 +198,7 @@ The difference between the two methods is that $getLanguage()$ returns $Language
 \end{figure}
 
 Since GenProg evaluates its variants using a test suite, Figure~\ref{fig:testsuite} shows the one we created for our buggy program. It contains three positive test cases $p1()$, $p2()$ and $p3()$ and one negative test case $n1()$. 
-In the context of automated program repair, positive test cases represent the desired behavior which should be kept after applying the patch whereas negative test cases induce the failure.
+In the context of automated program repair, positive test cases represent the desired behavior which should be kept after applying the patch whereas negative test cases trigger the bug.
 So in our example, $n1()$ triggers our buggy method $getLanguage()$ to return $Language.JAVA$ although we would expect it to output $Language.PYTHON$ using the correct version.
 
 \begin{figure}
@@ -214,9 +209,9 @@ So in our example, $n1()$ triggers our buggy method $getLanguage()$ to return $L
 \label{fig:testsuite}
 \end{figure}
 
-Why are we so sure that GenProg would be able to fix our bug?
+Why are we so confident that GenProg would be able to fix our bug?
 To reason about our consciousness, one must understand how GenProg finds its patches.
-The repair tool makes use of an evolutionary approach called genetic programming and operates on the level of statements. Its mutation operator selects a statement $stmt$ on along the execution path of the negative test case and chooses one of the following actions \cite{Philipp}:
+The repair tool makes use of an evolutionary approach called genetic programming and operates on the level of statements. Its mutation operator selects a statement $stmt$ along the execution path of the negative test case and chooses one of the following actions \cite{Philipp}:
 \begin{itemize}
  	\item A statement from anywhere in the program is inserted after $stmt$.
  	\item A statement from anywhere in the program is swapped with $stmt$.
@@ -235,7 +230,7 @@ Since Astor failed at repairing our program, during an intense debugging session
 We found out that there was a problem with the $fitInContext()$ method in the class $VariableResolver$. As the name indicates, it checks if a statement fits in some context. For instance, it's called when GenProg wants to insert a statement from somewhere in the code to a place along the execution path of the negative test case. In this situation, the statement to be inserted may contain access to variables which don't appear in the context where it is going to be inserted. Therefore, $fitInContext()$ is used to avoid the creation of uncompilable program variants.
 
 Figure~\ref{fig:fitInContext} gives pseudocode of our fixed version of the method.
-Essentially, we only added the expression ``$\vee access.isEnumReference()$'' in line 3 to fix the problem.
+Essentially, we only added the check ``$\vee access.isEnumReference()$'' in line 3 to fix the problem.
 The algorithm takes a statement $stmt$ and a set of variables as input.
 The variables represent the context in which $stmt$ has to fit (e.g. local and/or member variables). At first, we collect all variable accesses which appear in $stmt$.
 Every access must also be valid in the destination context which is checked in the for loop.
@@ -289,13 +284,22 @@ $varAccesses = collectVariableAccesses(stmt)$\;
 \end{figure}
 
 \section{Evaluation}\label{sec:evaluation}
-For the evaluation we used a testcase Database called "Defects4J" which contains 395 testprojects with different problems. After running Defects4J on both, the original Astor and our fixed version, we found out, that the tests, the Astor passed, our fix did also pass and the tests astor did not pass, our fix also did not pass. So the new version is as solid as the original version but it can also handle enums.
+To evaluate our modifications, we used the bug database Defects4J which contains 395 bugs of real life open source projects. 
+Since running a patch generation tool on large sized projects is very time consuming, we only picked a subset in Defects4J, containing 65 bugs of the Lang project. 
+This project seemed to be interesting since none of Astors repair modes was able to find any patches in Astors publication (see \cite{AstorPaper}).
+
+After running Defects4J on both the original Astor and our fixed version, we found out that the programs were behaving exactly the same. Unfortunately, we were not able to generate more patches for the bugs in Defects4J.
+This may have several reasons: 
+\begin{itemize}
+	\item The search space is too large. Since GenProg randomly inserts statements from anywhere in the program using its mutation operator, when being applied to a larger project, the chances of choosing ``the right statements'' is quite low in general.
+	\item In the case of our Defects4J bugs, a correct patch is simply not possible to create by just inserting code that contains enum references.
+\end{itemize}
+Since our Astor version was able to pass all unit tests and found the exact same patches for the example bugs, we are confident that it is at least as stable as the original version. Although we couldn't prove it for real life applications, the generated patch for our own test program in section~\ref{sec:problem} shows that there is definitely some improvement to the tool.
 
 \section{Conclusions}\label{sec:conclusions}
 
- Taking the results of Defects4J and our own testing into consideration we can conclude that we reached the goal we wanted to reach. Defects4J did not show any new failing tests so we did not make the tool worse, we improved it.
-
-Dies ist ein ganz kurzer Beispieltext \cite{AspectJ2007}
+Developing automated program repair tools proved not to be easy - neither in terms of creating new repair approaches nor in terms of the actual implementation. In our situation, forgetting a simple border case by not checking for enum references resulted in the fact that our trivial test program couldn't be fixed. 
+Since we showed that our modifications turn out to be reasonable, we're sure that there exists projects which could profit from our fixed Astor version. 
 
 \bibliography{Report-Astor}
 

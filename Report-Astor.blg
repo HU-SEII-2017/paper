@@ -3,47 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: Report-Astor.aux
 The style file: abbrvnat.bst
 Database file #1: Report-Astor.bib
-Warning--empty year in salam
-Warning--empty year in salam
+Warning--I didn't find a database entry for "AspectJ2007"
 You've used 3 entries,
             2773 wiz_defined-function locations,
-            611 strings with 4938 characters,
-and the built_in function-call counts, 1154 in all, are:
-= -- 106
-> -- 34
+            613 strings with 5113 characters,
+and the built_in function-call counts, 1495 in all, are:
+= -- 133
+> -- 70
 < -- 4
-+ -- 13
-- -- 10
-* -- 64
-:= -- 180
-add.period$ -- 11
++ -- 24
+- -- 21
+* -- 99
+:= -- 221
+add.period$ -- 9
 call.type$ -- 3
-change.case$ -- 13
+change.case$ -- 17
 chr.to.int$ -- 3
-cite$ -- 8
-duplicate$ -- 62
-empty$ -- 110
-format.name$ -- 13
-if$ -- 248
+cite$ -- 6
+duplicate$ -- 78
+empty$ -- 128
+format.name$ -- 26
+if$ -- 329
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 24
-num.names$ -- 14
-pop$ -- 33
+missing$ -- 2
+newline$ -- 23
+num.names$ -- 12
+pop$ -- 36
 preamble$ -- 1
-purify$ -- 9
+purify$ -- 13
 quote$ -- 0
-skip$ -- 47
+skip$ -- 67
 stack$ -- 0
-substring$ -- 34
-swap$ -- 12
-text.length$ -- 1
+substring$ -- 54
+swap$ -- 20
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 33
-warning$ -- 2
-while$ -- 12
+warning$ -- 0
+while$ -- 13
 width$ -- 0
-write$ -- 47
-(There were 2 warnings)
+write$ -- 46
+(There was 1 warning)

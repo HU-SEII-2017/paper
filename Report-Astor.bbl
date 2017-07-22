@@ -11,16 +11,16 @@ P.~Badenhoop.
 \newblock Technical report, Humboldt University of Berlin, Lehrstuhl Software
   Engineering, 2017.
 
-\bibitem[{Eclipse Foundation}(2007)]{AspectJ2007}
-{Eclipse Foundation}.
-\newblock {AspectJ} -- homepage, 2007.
-\newblock URL \url{http://www.eclipse.org/aspectj/}.
-\newblock Last visited November 14, 2007.
+\bibitem[Goues et~al.(2012)Goues, Nguyen, Forrest, and Weimer]{GenProgPaper}
+C.~L. Goues, T.~Nguyen, S.~Forrest, and W.~Weimer.
+\newblock Genprog: A generic method for automatic software repair.
+\newblock In \emph{IEEE Transactions on Software Engineering}, pages 54--72,
+  2012.
 
-\bibitem[Salam()]{salam}
-A.~Salam.
-\newblock Weak and electromagnetic interactions.
-\newblock In N.~Svartholm, editor, \emph{Elementary particle theory}, pages
-  367--377. Almquist \& Wiksell.
+\bibitem[Martinez and Monperrus(2016)]{AstorPaper}
+M.~Martinez and M.~Monperrus.
+\newblock Astor: A program repair library for java.
+\newblock In \emph{ISSTA 2016 Proceedings of the 25th International Symposium
+  on Software Testing and Analysis}, pages 441--444, 2016.
 
 \end{thebibliography}
